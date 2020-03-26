@@ -3,19 +3,21 @@ import numpy as np
 
 # Read video file
 cap = cv2.VideoCapture('Data/detectbuoy.avi')
+flag = 0
 
 while True:
 	# Capture frame by frame 
 	ret, frame = cap.read()
 
-	cv2.imshow('frame', frame)
-	cv2.waitKey(2)
-
-	if cv2.waitKey(1) & 0xFF == ord('q'):
+	if ret == False:
 		break
 
-	cv2.imwrite('bouy_frame.jpg', frame)
+	if flag % 5 == 0:
+		print("in if")
+		cv2.imwrite("./Data/frame_set/buoy_frame_"+str(flag)+".jpg", frame)
+		print("flag:", flag)
 	
+	flag += 1
 
 cap.release()
 cv2.destroyAllWindows()
